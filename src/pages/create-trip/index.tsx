@@ -85,7 +85,7 @@ export function CreateTripPage() {
           <DestinationAndDateStep
             closeGuestsInput={closeGuestsInput}
             openGuestsInput={openGuestsInput}
-            isGuestsInputOpen
+            isGuestsInputOpen={isGuestsInputOpen}
           />
 
           {isGuestsInputOpen && (
