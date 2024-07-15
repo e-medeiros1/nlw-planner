@@ -1,36 +1,62 @@
 import { Calendar, Tag, X } from "lucide-react";
 import { Button } from "../components/button";
+import { useNavigate, useParams } from "react-router-dom";
+import { FormEvent } from "react";
+import { api } from "../../lib/axios";
 
 interface CreateActivityModalProps {
-  changeCreateActivityModal: () => void
-
+  changeCreateActivityModal: () => void;
 }
 
-export function CreateActivityModal({ changeCreateActivityModal }: CreateActivityModalProps)
-{
-    return (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-            <div className="w-[640px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5">
-            <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold">Cadastrar atividade</h2>
-                <button>
-                    <X className="size-5 text-zinc-400" onClick={changeCreateActivityModal} />
-                </button>
-                </div>
+export function CreateActivityModal({
+  changeCreateActivityModal,
+}: CreateActivityModalProps) {
+  const { tripId } = useParams();
+  const navigate = useNavigate();
 
-                <p className="text-sm text-zinc-400">
-                    Todos convidados podem visualizar as atividades.
-                </p>
-            </div>
+  async function createActivity(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-            <div className="w-full h-px bg-zinc-800" />
+    const data = new FormData(event.currentTarget);
 
-            <form className="space-y-3">
+    const title = data.get("title")?.toString();
+    const occurs_at = data.get("occurs_at")?.toString();
+
+    await api.post(`/trips/${tripId}/activities`, {
+      title,
+      occurs_at,
+    });
+
+    changeCreateActivityModal();
+
+    navigate(0);
+  }
+  return (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
+      <div className="w-[640px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold">Cadastrar atividade</h2>
+            <button>
+              <X
+                className="size-5 text-zinc-400"
+                onClick={changeCreateActivityModal}
+              />
+            </button>
+          </div>
+
+          <p className="text-sm text-zinc-400">
+            Todos convidados podem visualizar as atividades.
+          </p>
+        </div>
+
+        <div className="w-full h-px bg-zinc-800" />
+
+        <form onSubmit={createActivity} className="space-y-3">
                 <div className="h-14 px-4 bg-zinc-950 border-zinc-800 rounded-lg flex items-center gap-2">
                     <Tag className="text-zinc-400 size-5" />
                     <input 
-                        name="name"
+                        name="title"
                         placeholder="Qual a atividade?"  
                         className=" bg-transparent placeholder-zinc-400 outline-none flex-1"
                     />
@@ -53,5 +79,5 @@ export function CreateActivityModal({ changeCreateActivityModal }: CreateActivit
             </form>
             </div>
         </div>
-    )
+  )
 }

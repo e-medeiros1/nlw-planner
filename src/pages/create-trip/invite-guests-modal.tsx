@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import { Button } from "../components/button";
 
 interface InviteGuestModalProps {
-  closeGuestsModal: () => void;
+  changeGuestsModal: () => void;
   removeEmailFromInvites: (email: string) => void;
   addNewEmailToInvite: (event: FormEvent<HTMLFormElement>) => void;
   emailsToInvite: string[];
@@ -11,7 +11,7 @@ interface InviteGuestModalProps {
 
 export function InviteGuestsModal({
   addNewEmailToInvite,
-  closeGuestsModal,
+  changeGuestsModal,
   removeEmailFromInvites,
   emailsToInvite,
 }: InviteGuestModalProps) {
@@ -22,7 +22,7 @@ export function InviteGuestsModal({
           <div className="flex items-center justify-between">
             <h2 className="font-lg font-semibold">Selecionar convidados</h2>
             <button>
-              <X className="size-5 text-zinc-400" onClick={closeGuestsModal} />
+              <X className="size-5 text-zinc-400" onClick={changeGuestsModal} />
             </button>
           </div>
 
