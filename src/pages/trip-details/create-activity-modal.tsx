@@ -55,7 +55,7 @@ export function CreateActivityModal({
          console.log(
           "The date of the activity are inferior to the trip date."
         );
-        setErrorMessage('Activity date cannot be before the trip start date.');
+        setErrorMessage('A atividade deve acontecer dentro das datas escolhidas para a viagem.');
         return;
 
       }
