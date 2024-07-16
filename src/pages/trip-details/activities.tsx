@@ -20,10 +20,11 @@ export function Activities() {
 
   useEffect(() => {
     api
-      .get(`/trips/${tripId}/activities`)
-      .then((response) => setActivities(response.data.activities));
+    .get(`/trips/${tripId}/activities`)
+    .then((response) => setActivities(response.data.activities));
+    
   }, [tripId]);
-
+  
   return (
     <div className="space-y-8">
       {activities.map((category) => {
