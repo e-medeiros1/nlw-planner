@@ -1,10 +1,10 @@
-import { ArrowRight, Calendar, MapPin, Settings2, X } from "lucide-react";
-import { Button } from "../../components/button";
-import { useState } from "react";
-import { DateRange, DayPicker } from "react-day-picker";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { ArrowRight, Calendar, MapPin, Settings2, X } from "lucide-react";
+import { useState } from "react";
+import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { Button } from "../../components/button";
 
 interface DestinationAndDateStepProps {
   isGuestsInputOpen: boolean;
@@ -82,7 +82,8 @@ export function DestinationAndDateStep({
             <DayPicker
               mode="range"
               locale={ptBR}
-              disabled={{ before: new Date() }}
+              hidden={{ before: new Date() }}
+              
               selected={eventStartAndEndDates}
               onSelect={setEventStartAndEndDates}
             />
